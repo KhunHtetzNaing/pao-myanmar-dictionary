@@ -1,6 +1,14 @@
 # pao_myanmar_dictionary
 
-A new Flutter project.
+A simple offline dictionary for Pa'O and Myanmar languages.
+
+## Features
+
+- Bidirectional word lookup (Pa'O ⟷ Myanmar)
+- Material 3 design
+- Categorized word collections
+- Works offline
+- Automatic day/night theme
 
 ## Getting Started
 
