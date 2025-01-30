@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pao_myanmar_dictionary/data/word.dart';
@@ -24,7 +25,7 @@ class WordTile extends StatelessWidget {
         try {
           await Clipboard.setData(ClipboardData(text: text));
           if (context.mounted) {
-            _showSnackbar(context, "ထူႏကူꩻထွူလဲဉ်းဩ။");
+            _showSnackbar(context, context.tr("copied"));
           }
         } catch (e) {
           if (context.mounted) {

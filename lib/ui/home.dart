@@ -38,6 +38,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(context.tr("title")),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
@@ -114,8 +115,9 @@ class _HomePageState extends State<HomePage> {
         final category = _categories[index];
         final items = _repository.fetchWordsByCategory(category);
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) =>
-                WordsByCategory(items: items, title: category.pao)));
+            builder: (context) => WordsByCategory(
+                items: items,
+                title: context.isMyanmar ? category.mm : category.pao)));
       },
     );
   }
