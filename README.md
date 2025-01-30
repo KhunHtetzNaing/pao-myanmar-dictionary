@@ -1,6 +1,8 @@
-# pao_myanmar_dictionary
+# Pa'O Myanmar Dictionary
 
-A simple offline dictionary for Pa'O and Myanmar languages.
+![Pa'O Myanmar Dictionary](https://github.com/KhunHtetzNaing/pao-myanmar-dictionary/blob/main/files/playstore/cover.jpg?raw=true)
+
+A simple offline dictionary for [Pa'O](https://en.wikipedia.org/wiki/Pa%27O_language) and [Myanmar](https://en.wikipedia.org/wiki/Burmese_language) languages.
 
 ## Features
 
