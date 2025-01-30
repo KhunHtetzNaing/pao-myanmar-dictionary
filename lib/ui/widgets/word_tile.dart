@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pao_myanmar_dictionary/data/word.dart';
+import 'package:pao_myanmar_dictionary/ext.dart';
 import 'package:share_plus/share_plus.dart';
 
 class WordTile extends StatelessWidget {
@@ -9,14 +10,17 @@ class WordTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final title = context.isMyanmar ? item.mm : item.pao;
+    final subtitle = context.isMyanmar ? item.pao : item.mm;
+    final text = "$title\n\n$subtitle";
+
     return ListTile(
-      title: Text(item.pao),
-      subtitle: Text(item.mm),
+      title: Text(title),
+      subtitle: Text(subtitle),
       leading: CircleAvatar(
-        child: Text(item.pao[0]),
+        child: Text(title[0]),
       ),
       onTap: () async {
-        final text = "${item.pao}\n\n${item.mm}";
         try {
           await Clipboard.setData(ClipboardData(text: text));
           if (context.mounted) {
@@ -29,7 +33,7 @@ class WordTile extends StatelessWidget {
         }
       },
       onLongPress: () {
-        Share.share("${item.pao}\n\n${item.mm}");
+        Share.share(text);
       },
     );
   }
