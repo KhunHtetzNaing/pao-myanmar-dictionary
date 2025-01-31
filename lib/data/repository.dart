@@ -1,34 +1,18 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:pao_myanmar_dictionary/data/category.dart';
+import 'package:pao_myanmar_dictionary/data/db/sqlite3.dart';
 import 'package:pao_myanmar_dictionary/data/word.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:sqlite3/sqlite3.dart';
+import 'package:sqlite3/common.dart';
 
 class Repository {
-  Database? _wordDatabase, _dictionaryDatabase;
+  CommonDatabase? _wordDatabase, _dictionaryDatabase;
   Future<void> init() async {
     try {
-      _wordDatabase = sqlite3.open(await _copyDatabase("pao_mm_word.sqlite"),
-          mode: OpenMode.readOnly);
-
-      _dictionaryDatabase = sqlite3.open(
-          await _copyDatabase("pao_mm_dictionary.sqlite"),
-          mode: OpenMode.readOnly);
+      _wordDatabase = await openSqliteDb("pao_mm_word.sqlite");
+      _dictionaryDatabase = await openSqliteDb("pao_mm_dictionary.sqlite");
     } catch (e) {
       debugPrint("$e");
     }
-  }
-
-  Future<String> _copyDatabase(String fileName) async {
-    final directory = await getApplicationDocumentsDirectory();
-    final data = await rootBundle.load("assets/db/$fileName");
-    final path = join(directory.path, fileName);
-    await File(path).writeAsBytes(data.buffer.asInt8List());
-    return path;
   }
 
   List<CategoryItem> fetchCategories() {
