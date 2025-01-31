@@ -1,8 +1,8 @@
 # Pa'O Myanmar Dictionary
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/KhunHtetzNaing/pao-myanmar-dictionary/blob/main/files/playstore/light.png?raw=true">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/KhunHtetzNaing/pao-myanmar-dictionary/blob/main/files/playstore/dark.png?raw=true">
+  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/KhunHtetzNaing/pao-myanmar-dictionary/blob/main/files/playstore/dark.png?raw=true">
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/KhunHtetzNaing/pao-myanmar-dictionary/blob/main/files/playstore/light.png?raw=true">
   <img alt="Pa'O Myanmar Dictionary" src="https://github.com/KhunHtetzNaing/pao-myanmar-dictionary/blob/main/files/playstore/promo.png?raw=true">
 </picture>
 
