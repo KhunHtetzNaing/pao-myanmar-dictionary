@@ -49,9 +49,13 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.translate_rounded))
         ],
       ),
-      body: Column(
-        children: [_searchBar(), _items()],
-      ),
+      body: _words.isEmpty
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : Column(
+              children: [_searchBar(), _items()],
+            ),
       drawer: _drawer(context),
     );
   }
@@ -85,30 +89,7 @@ class _HomePageState extends State<HomePage> {
       ],
       onDestinationSelected: (index) {
         if (index == _categories.length) {
-          showAboutDialog(
-              context: context,
-              applicationName: "Pa'O-Myanmar Dictionary",
-              applicationVersion: "1.2.0",
-              children: [
-                GestureDetector(
-                  child: Text("Developer: Khun Htetz Naing"),
-                  onTap: () => launchUrl(
-                      Uri.parse("https://www.facebook.com/iamHtetzNaing")),
-                ),
-                SizedBox(
-                  height: 16,
-                ),
-                GestureDetector(
-                  child: Text("Database: Khun Naing Ko"),
-                  onTap: () => launchUrl(
-                      Uri.parse("https://m.facebook.com/100003911637398")),
-                ),
-              ],
-              applicationIcon: Card(
-                color: Theme.of(context).colorScheme.primaryContainer,
-                child: SizedBox(
-                    width: 50, height: 50, child: Center(child: Text("က"))),
-              ));
+          _showAbout(context);
           return;
         }
 
@@ -120,6 +101,57 @@ class _HomePageState extends State<HomePage> {
                 title: context.isMyanmar ? category.mm : category.pao)));
       },
     );
+  }
+
+  void _showAbout(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text("Pa'O-Myanmar Dictionary"),
+              content: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ListTile(
+                    leading: Icon(Icons.update_rounded),
+                    title: Text("Version"),
+                    subtitle: Text("1.2.1"),
+                    onTap: () => launchUrl(Uri.parse(
+                        "https://github.com/KhunHtetzNaing/pao-myanmar-dictionary")),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.terminal_rounded),
+                    title: Text("Developer"),
+                    subtitle: Text("Khun Htetz Naing"),
+                    onTap: () => launchUrl(
+                        Uri.parse("https://www.facebook.com/iamHtetzNaing")),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.storage_rounded),
+                    title: Text("Database"),
+                    subtitle: Text("Khun Naing Ko"),
+                    onTap: () => launchUrl(
+                        Uri.parse("https://m.facebook.com/100003911637398")),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: Text("OK"))
+              ],
+            ));
+
+    // return showAboutDialog(
+    //     context: context,
+    //     applicationName: "Pa'O-Myanmar Dictionary",
+    //     applicationVersion: "1.2.0",
+    //     children: [],
+    //     applicationIcon: Card(
+    //       color: Theme.of(context).colorScheme.primaryContainer,
+    //       child:
+    //           SizedBox(width: 50, height: 50, child: Center(child: Text("က"))),
+    //     ));
   }
 
   Expanded _items() {
@@ -145,6 +177,15 @@ class _HomePageState extends State<HomePage> {
 
             final searchResult = _words.where(
                 (item) => item.mm.contains(query) || item.pao.contains(query));
+
+            if (searchResult.isEmpty) {
+              return [
+                Container(
+                    padding: EdgeInsets.all(16),
+                    child: Text("empty".tr(args: [query])))
+              ];
+            }
+
             return searchResult.map((item) => WordTile(
                   item: item,
                 ));

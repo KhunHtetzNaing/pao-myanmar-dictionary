@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pao_myanmar_dictionary/ui/home.dart';
 import 'package:upgrader/upgrader.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-
   runApp(
     EasyLocalization(
         supportedLocales: [Locale('en'), Locale('my')],
@@ -31,15 +31,8 @@ class MyApp extends StatelessWidget {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         title: "Pa'O Myanmar Dictionary",
-        theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-            useMaterial3: true,
-            fontFamily: 'Pyidaungsu'),
-        darkTheme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(
-                seedColor: Colors.green, brightness: Brightness.dark),
-            useMaterial3: true,
-            fontFamily: 'Pyidaungsu'),
+        theme: _buildThemeData(Brightness.light),
+        darkTheme: _buildThemeData(Brightness.dark),
         themeMode: ThemeMode.system,
         home: UpgradeAlert(
           upgrader: Upgrader(
@@ -50,5 +43,19 @@ class MyApp extends StatelessWidget {
           ),
           child: HomePage(),
         ));
+  }
+
+  ThemeData _buildThemeData(Brightness brightness) {
+    final colorScheme =
+        ColorScheme.fromSeed(seedColor: Colors.green, brightness: brightness);
+    return ThemeData(
+        appBarTheme: AppBarTheme(
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: colorScheme.inversePrimary,
+          ),
+        ),
+        colorScheme: colorScheme,
+        useMaterial3: true,
+        fontFamily: 'Pyidaungsu');
   }
 }
