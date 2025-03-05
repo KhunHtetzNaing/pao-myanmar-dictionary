@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
             durationUntilAlertAgain: Duration(seconds: 10),
             storeController: UpgraderStoreController(
               onAndroid: () => UpgraderAppcastStore(appcastURL: appcastURL),
+              oniOS: () => UpgraderAppcastStore(appcastURL: appcastURL),
             ),
           ),
           child: HomePage(),

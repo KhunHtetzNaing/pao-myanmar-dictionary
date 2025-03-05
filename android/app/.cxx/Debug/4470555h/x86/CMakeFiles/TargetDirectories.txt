@@ -1,0 +1,2 @@
+/Users/htetznaing/Documents/flutter/pao-myanmar-dictionary/android/app/.cxx/Debug/4470555h/x86/CMakeFiles/edit_cache.dir
+/Users/htetznaing/Documents/flutter/pao-myanmar-dictionary/android/app/.cxx/Debug/4470555h/x86/CMakeFiles/rebuild_cache.dir
